@@ -1,0 +1,15 @@
+cc_library(
+    name = "llvm_demangle",
+    srcs = [
+        "lib/Demangle/Demangle.cpp",
+        "lib/Demangle/ItaniumDemangle.cpp",
+        "lib/Demangle/MicrosoftDemangle.cpp",
+        "lib/Demangle/MicrosoftDemangleNodes.cpp",
+        "lib/Demangle/RustDemangle.cpp",
+        "lib/Demangle/DLangDemangle.cpp",
+    ],
+    hdrs = glob(["include/llvm/Demangle/*.h", "include/llvm/Demangle/*.def"]),
+    includes = ["include"],
+    copts = ["-w"],
+    visibility = ["//visibility:public"],
+)

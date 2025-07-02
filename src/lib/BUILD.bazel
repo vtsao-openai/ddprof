@@ -1,0 +1,24 @@
+package(default_visibility = ["//visibility:public"])
+
+cc_library(
+    name = "dd_profiling",
+    srcs = [
+        "address_bitset.cc",
+        "allocation_tracker.cc",
+        "dd_profiling.cc",
+        "ddprof_output.cc",
+        "elfutils.cc",
+        "glibc_fixes.c",
+        "lib_embedded_data.c",
+        "loader.c",
+        "libc_compatibility.c",
+        "pthread_fixes.cc",
+        "savecontext.cc",
+        "saveregisters.cc",
+        "symbol_overrides.cc",
+    ],
+    hdrs = glob(["*.h", "*.hpp"]),
+    includes = ["../../include", "../../include/lib"],
+    copts = ["-std=c++20", "-fno-semantic-interposition", "-fvisibility=hidden"],
+    linkopts = ["-ldl", "-pthread"],
+)

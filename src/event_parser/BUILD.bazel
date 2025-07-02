@@ -1,0 +1,26 @@
+package(default_visibility = ["//visibility:public"])
+
+genrule(
+    name = "event_parser_yacc",
+    srcs = ["event_parser.y"],
+    outs = ["event_parser.tab.cpp", "event_parser.h"],
+    cmd = "bison -d -o $(@D)/event_parser.tab.cpp $(location event_parser.y); mv $(@D)/event_parser.tab.h $(@D)/event_parser.h",
+)
+
+genrule(
+    name = "event_parser_lex",
+    srcs = ["event_parser.l"],
+    outs = ["event_parser.lex.cpp"],
+    cmd = "flex -o $(@D)/event_parser.lex.cpp $(location event_parser.l)",
+)
+
+cc_library(
+    name = "event_parser",
+    srcs = [
+        "event_parser.lex.cpp",
+        "event_parser.tab.cpp",
+    ],
+    hdrs = ["event_parser.h"],
+    includes = [".", "../../include"],
+    deps = [],
+)
